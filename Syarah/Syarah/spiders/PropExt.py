@@ -26,7 +26,6 @@ def identifyfield(value):
     if ('الفئه'in value):
         return 'category'
 
-
     if ('الممشى'in value):
         return 'walkaway'
 
@@ -59,13 +58,7 @@ def identifyfield(value):
 
 #price 
 
-#walkawayt|الممشى:
 
-#geartype|نوع القير :
-
-#sepcifications |المواصفات:
-
-#engine capacity |سعة المحرك:
 
 
 
@@ -102,15 +95,39 @@ class PropextSpider(scrapy.Spider):
 
         for obj in data:
             key = obj.xpath('.//p/span[@class="title"]/text()').get()   
-            val = obj.xpath('.//p/span[@itemprop]/text()').get()        
+                    
 
-            yield{
-                'key':identifyfield(key),
-                'val':val
-            }
+            if ('fueltype' == identifyfield(key)):
+                val = obj.xpath('.//p/span[@itemprop]/text()').get()
+                Car['fueltype'] = val
                 
+            elif ('geartype' == identifyfield(key)):
+                val = obj.xpath('.//p/span[@itemprop]/text()').get()
+                Car['geartype'] = val
+            
+            elif ('specifications' == identifyfield(key)):
+                val = obj.xpath('.//p/span[@itemprop]/text()').get()
+                Car['specifications'] = val
 
+            elif ('enginecapacity' == identifyfield(key)):
+                val = obj.xpath('.//p/span[@itemprop]/text()').get()
+                Car['enginecapacity'] = val
 
+            elif ('walkaway' == identifyfield(key)):
+                val = obj.xpath('.//p/span[not(@itemprop) and not(@class) ]/text()').get()
+                Car['walkaway'] = val
+            
+            elif ('color' == identifyfield(key)):
+                val = obj.xpath('.//p/span[@itemprop]/span[@class="circle-color"]/text()').get()
+                Car['color'] = val
+
+            elif ('model' == identifyfield(key)):
+            val = obj.xpath('.//p/span[@itemprop]/span[@class="circle-color"]/text()').get()
+            Car['color'] = val
+            
+    
+
+        yield Car
 
             #if (identifyfield(all) == 'fueltype'):
             #    response.xpath('//div[@class="row post_ad_list_details"]/div[@class="col-lg-6 col-md-6 col-sm-12 col-xs-12"]/p/span[@class="title"]/text()').getall()
