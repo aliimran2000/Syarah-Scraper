@@ -23,6 +23,9 @@ FEED_EXPORT_ENCODING = 'utf-8'
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
 CONCURRENT_REQUESTS = 32
 
+#FEED_EXPORTERS = {
+#    'xlsx': 'scrapy_xlsx.XlsxItemExporter',
+#}
 # Configure a delay for requests for the same website (default: 0)
 # See https://docs.scrapy.org/en/latest/topics/settings.html#download-delay
 # See also autothrottle settings and docs
