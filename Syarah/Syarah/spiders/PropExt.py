@@ -75,7 +75,7 @@ class PropextSpider(scrapy.Spider):
         #for obj in data:
         self.start_urls.pop()
 
-        for i in range(0,int(len(data)/500)):
+        for i in range(0,100):
             self.start_urls.append(data[i]['url'])
 
 
@@ -133,9 +133,9 @@ class PropextSpider(scrapy.Spider):
                 val = obj.xpath('.//p/span[@itemprop]/a/text()').get()
                 Car['category'] = val
                 
-            elif ('category' == identifyfield(key)):
+            elif ('type' == identifyfield(key)):
                 val = obj.xpath('.//p/span[@itemprop]/a/@alt').get()
-                Car['category'] = val
+                Car['type'] = val
 
 
         yield Car
