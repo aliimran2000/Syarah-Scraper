@@ -59,9 +59,6 @@ def identifyfield(value):
 #price 
 
 
-
-
-
 class PropextSpider(scrapy.Spider):
     name = 'PropExt'
     allowed_domains = ['syarah.com']
@@ -75,7 +72,7 @@ class PropextSpider(scrapy.Spider):
         #for obj in data:
         self.start_urls.pop()
 
-        for i in range(0,100):
+        for i in range(0,10):
             self.start_urls.append(data[i]['url'])
 
 
@@ -91,6 +88,7 @@ class PropextSpider(scrapy.Spider):
         Car={}
         Car['title'] = title
         Car['price'] = price
+        Car['image'] = response.xpath('//div[@class="item  cont-vertical-img"]/img/@src').get()
 
 
         for obj in data:
@@ -136,7 +134,6 @@ class PropextSpider(scrapy.Spider):
             elif ('type' == identifyfield(key)):
                 val = obj.xpath('.//p/span[@itemprop]/a/@alt').get()
                 Car['type'] = val
-
 
         yield Car
 
